@@ -1,1 +1,6 @@
 POST http://{{host}}:{{port}}/demo/api/token/john
+
+ {%
+    client.global.set("auth_token", response.body.token);
+%}
+#> ./script/response-handler.js

@@ -1,5 +1,6 @@
 package com.example.httpclientdemo.controller;
 
+import com.example.httpclientdemo.model.TokenInfo;
 import com.example.httpclientdemo.util.JwtTokenUtil;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,10 @@ public class TokenController {
     }
 
 
-    @PostMapping("/{username}")
-    public String token(@PathVariable String username) {
-        return jwtTokenUtil.generateToken(username);
+    @PostMapping(value = "/{username}")
+    public TokenInfo token(@PathVariable String username) {
+
+        return new TokenInfo( jwtTokenUtil.generateToken(username));
     }
+
 }

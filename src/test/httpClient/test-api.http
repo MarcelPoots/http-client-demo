@@ -4,6 +4,7 @@ GET http://{{host}}:{{port}}/demo
 ###
 
 GET http://{{host}}:{{port}}/demo/api/customer/1
+Authorization: Bearer {{auth_token}}
 
 ###
 
