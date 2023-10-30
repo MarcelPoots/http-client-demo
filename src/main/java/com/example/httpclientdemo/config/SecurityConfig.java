@@ -8,9 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -21,6 +19,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    public static final String API_TOKEN = "/api/token/**";
     private JwtTokenFilter jwtTokenFilter;
 
     public SecurityConfig (JwtTokenFilter jwtTokenFilter) {
@@ -43,14 +42,14 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain tokenSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher(AntPathRequestMatcher.antMatcher("/api/token/**"))
+                .securityMatcher(AntPathRequestMatcher.antMatcher(API_TOKEN))
                 .authorizeHttpRequests( auth -> {
-                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/token/**")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher(API_TOKEN)).permitAll();
                 })
-                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/token/**")))
-                .headers(headers -> headers.frameOptions().disable())
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher(API_TOKEN)))
+                .headers(headers -> headers.frameOptions().disable()) //NOSONAR
                 .build();
     }
 
@@ -68,18 +67,5 @@ public class SecurityConfig {
                 .build();
     }
 
-
-
-
-    @Bean
-    UserDetailsService userDetailsService() {
-        var user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }
 
 }

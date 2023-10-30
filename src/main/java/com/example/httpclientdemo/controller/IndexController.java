@@ -1,24 +1,18 @@
 package com.example.httpclientdemo.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.example.httpclientdemo.model.ServerInfo;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class IndexController {
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = { "application/json" })
-    public InfoObject index(){
+    @GetMapping(value = "/", produces = { "application/json" })
+    public ServerInfo index(){
 
-        return new InfoObject("Demo server v1.0");
+        return new ServerInfo("v1.0","Demo server v1.0");
     }
 
-    @Data
-    @AllArgsConstructor
-    class InfoObject {
-        private String info;
-    }
+
 }
