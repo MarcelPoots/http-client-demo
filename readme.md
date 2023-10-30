@@ -1,4 +1,6 @@
-Demo application to see how to work with the httpClient in 
+Demo application to see how to work with the httpClient instead of Postman to test apis.
+
+See : 
 
 src/test/resources/httpClient
 
