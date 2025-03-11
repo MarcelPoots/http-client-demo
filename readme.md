@@ -2,7 +2,7 @@ Demo application to see how to work with the httpClient instead of Postman to te
 
 See : 
 
-src/test/resources/httpClient
+folder httpClient
 
 ![alt text](https://github.com/MarcelPoots/http-client-demo/blob/main/config.png?raw=true)
 

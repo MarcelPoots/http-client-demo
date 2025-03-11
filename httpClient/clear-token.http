@@ -1,0 +1,4 @@
+POST http://{{host}}:{{port}}/demo/api/token/user
+
+
+> ./script/clear-token.js
